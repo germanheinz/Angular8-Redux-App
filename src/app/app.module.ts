@@ -1,12 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { APP_ROUTES } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
-import { MatSliderModule } from '@angular/material/slider';
 import { MaterialModule } from './material-module';
+
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -17,9 +16,10 @@ import { RegisterComponent } from './register/register.component';
     RegisterComponent
   ],
   imports: [
+    APP_ROUTES,
     PagesModule,
     MaterialModule,
-    APP_ROUTES,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
