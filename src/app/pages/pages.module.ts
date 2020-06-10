@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { PAGES_ROUTES } from './page-routing.module';
 import { MatSliderModule } from '@angular/material/slider';
-import { HeaderComponent } from './header/header.component';
+import { SharedModule } from '../shared/shared.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
-    HeaderComponent,
+    HomeComponent,
   ],
-  exports:[HeaderComponent],
+  exports:[],
   imports: [
     CommonModule,
     PAGES_ROUTES,
+    SharedModule,
     MatSliderModule,
   ]
 })
