@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="container">
+    <mat-card class="register-card">
+        <mat-card-title class="register-padding">Register</mat-card-title>
+        <mat-card-subtitle>Do you have an <a routerLink='/login'>Account</a>?</mat-card-subtitle>
+        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+        <div class="example-container">
+            <mat-form-field appearance="outline">
+                <mat-label>FirstName</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>LastName</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Select</mat-label>
+                <mat-select>
+                    <mat-option value="option">Option</mat-option>
+                    <mat-option value="option">Option</mat-option>
+                    <mat-option value="option">Option</mat-option>
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+        </div>
+        <mat-card-actions>
+            <button mat-button>SAVE</button>
+            <button mat-button>CANCEL</button>
+        </mat-card-actions>
+
+    </mat-card>
+</div>
