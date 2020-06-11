@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import * as authAction from '../../auth/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class AuthService {
   private _user : User;
   private _token: string;
 
-  constructor(private http: HttpClient, private router: Router) { this.loadStorage(); }
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) { this.loadStorage(); }
 
   loadStorage() {
     this._token = sessionStorage.getItem('token');
@@ -26,6 +29,7 @@ export class AuthService {
       this._user = null;
     }
   }
+
   // LOGIN
   login(user: User): Observable<any> {
 
@@ -57,6 +61,10 @@ export class AuthService {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
     sessionStorage.clear();
+
+    // NGRX DISPATCH ACTION
+    this.store.dispatch(authAction.unSetUser());
+    
     this.router.navigate(['/login']);
   }
 
@@ -81,13 +89,16 @@ export class AuthService {
 
   // LOCAL STORAGE: USER
   saveUser(accessToken: string): void{
-    let payload = this.payload(accessToken);
-    this._user = new User(payload.username, payload.password);
-    this._user.nombre = payload.nombre;
-    this._user.apellido = payload.apellido;
-    this._user.email = payload.email;
+    let payload         = this.payload(accessToken);
+    this._user          = new User(payload.username, payload.password);
+    this._user.nombre   = payload.nombre;
+    this._user.apellido = payload.lastname;
+    this._user.email    = payload.email;
     this._user.username = payload.user_name;
     sessionStorage.setItem('user', JSON.stringify(this._user));
+
+    // NGRX DISPATCH ACTION
+    this.store.dispatch(authAction.setUser({user: this._user}));
   }
 
   // LOCAL STORAGE: TOKEN

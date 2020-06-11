@@ -33,7 +33,8 @@
                 <br> -->
             </div>
             <mat-card-actions>
-                <button mat-button mat-raised-button color="primary" [disabled]="!form.valid">SAVE</button>
+                <button mat-button mat-raised-button color="primary" [disabled]="!form.valid" *ngIf="!loading">SAVE</button>
+                <button mat-button mat-raised-button color="primary" [disabled]=true *ngIf="loading"><mat-spinner></mat-spinner></button>
                 <button mat-button>CANCEL</button>
             </mat-card-actions>
         </form>

@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { User } from '../models/user.model';
-import { AuthService } from '../services/auth/auth.service';
+import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 // NGRX
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
-import * as ui from '../shared/ui.actions';
+import { AppState } from '../../app.reducer';
+import * as ui from '../../shared/ui.actions';
 import { Subscription } from 'rxjs';
 
 

@@ -18,7 +18,8 @@
                 <br>
             </div>
             <mat-card-actions>
-                <button mat-button mat-raised-button color="primary" [disabled]="!form.valid">SAVE</button>
+                <button mat-button mat-raised-button color="primary" [disabled]="!form.valid" *ngIf="!loading">SAVE</button>
+                <button mat-button mat-raised-button color="primary" [disabled]=true *ngIf="loading"><i class="fa fa-spin fa-sync"></i></button>
                 <button mat-button>CANCEL</button>
             </mat-card-actions>
         </form>

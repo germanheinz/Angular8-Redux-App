@@ -6,8 +6,8 @@ import { APP_ROUTES } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
 import { MaterialModule } from './material-module';
 
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { ServicesModule } from './services/services.module';
 
 // NGRX - REDUX
