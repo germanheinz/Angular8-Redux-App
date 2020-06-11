@@ -1,22 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
+// NGRX
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { Subscription } from 'rxjs';
+import * as ui from '../shared/ui.actions';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
    // FORM
    form: FormGroup;
    user: User;
 
-  constructor(private authService: AuthService, private route: Router) { }
+  loading: boolean = false;
+  uiSubscription: Subscription;
+
+  constructor(private authService: AuthService, private route: Router, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -24,17 +33,29 @@ export class RegisterComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       email:    new FormControl('', [Validators.required, Validators.email])
     });
+    this.uiSubscription = this.store.select('ui').subscribe(ui => { this.loading = ui.isLoading; });
+  }
+  // IMPLEMENT ON DESTROY TO CLEAN MEMORY
+  ngOnDestroy(): void {
+    this.uiSubscription.unsubscribe();
   }
 
 
   register(){
     console.log(this.form.value);
+    // DISPATCH ACTION
+    this.store.dispatch(ui.isLoading());
+
     if (this.form.invalid) { return; }
 
     this.user = new User(this.form.value.username, this.form.value.password);
     this.user.email = this.form.value.email;
 
     this.authService.register(this.form.value).subscribe(resp => {
+
+      // DISPATCH ACTIONS
+      this.store.dispatch(ui.stopLoading());
+
       console.log(resp);
       let timerInterval;
       Swal.fire({
@@ -60,6 +81,10 @@ export class RegisterComponent implements OnInit {
       });
       this.route.navigate(['/']);
     }, error => {
+
+      // DISPATCH ACTIONS
+      this.store.dispatch(ui.stopLoading());
+
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
