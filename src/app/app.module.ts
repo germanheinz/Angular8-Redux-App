@@ -8,6 +8,7 @@ import { MaterialModule } from './material-module';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ServicesModule } from './services/services.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterComponent } from './register/register.component';
     APP_ROUTES,
     PagesModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServicesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

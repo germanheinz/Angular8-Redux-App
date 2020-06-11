@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../models/user.model';
+import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,10 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   user: User;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
+    this.form  =  new FormGroup({
       username : new FormControl('', [Validators.required]),
       password : new FormControl('', [Validators.required])
     });
@@ -26,6 +28,11 @@ export class LoginComponent implements OnInit {
     console.log(this.form.value);
     this.user = new User(this.form.value.username, this.form.value.password);
     console.log(this.user);
+
+    this.authService.login(this.user).subscribe(resp => {
+      console.log(resp);
+      this.router.navigate(['/']);
+    });
   }
 
   // METODO ERRORES //
