@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.user).subscribe(resp => {
       console.log(resp);
+
+      this.authService.saveUser(resp.access_token);
+      this.authService.saveToken(resp.access_token);
+
       this.router.navigate(['/']);
       Swal.fire({
         icon: 'success',
