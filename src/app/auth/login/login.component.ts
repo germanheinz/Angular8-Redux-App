@@ -45,12 +45,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     // DISPATCH ACTION
       this.store.dispatch(ui.isLoading());
 
-      console.log(this.form.value);
       this.user = new User(this.form.value.username, this.form.value.password);
-      console.log(this.user);
 
       this.authService.login(this.user).subscribe(resp => {
-      console.log(resp);
+      // console.log(resp);
 
       // SERVICES
       this.authService.saveUser(resp.access_token);

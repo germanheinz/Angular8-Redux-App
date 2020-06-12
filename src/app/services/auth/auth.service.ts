@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import * as authAction from '../../auth/auth.actions';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,7 @@ export class AuthService {
   loadStorage() {
     this._token = sessionStorage.getItem('token');
     this._user = JSON.parse(sessionStorage.getItem('usuario'));
-    if (this.token) {
-    console.log('entro a cargarStroage' + this._token);
-    } else {
-      console.log('paso por el else cargarStroage' + this._token);
+    if (this._token) {} else {
       this._token = '';
       this._user = null;
     }
@@ -33,7 +31,7 @@ export class AuthService {
   // LOGIN
   login(user: User): Observable<any> {
 
-    const url = 'http://localhost:8080/oauth/token';
+    const url = environment.URL + '/oauth/token';
 
     const credenciales = btoa('angularapp' + ':' + '12345');
 
@@ -44,14 +42,14 @@ export class AuthService {
     params.set('grant_type', 'password');
     params.set('username', user.username);
     params.set('password', user.password);
-    console.log(params.toString());
+    // console.log(params.toString());
 
     return this.http.post<any>(url, params.toString(), {headers: httpHeaders});
   }
 
   // REGISTER
   register(user: User): Observable<any>{
-    const url = 'http://localhost:8080/api/user/create';
+    const url = environment.URL + '/api/user/create';
     return this.http.post<any>(url, user);
   }
 
@@ -82,7 +80,6 @@ export class AuthService {
 
   // IS LOGGED
   isLogged(){
-    console.log(this._token);
     this._token = this.token;
     return this._token.length > 5 ? true : false;
   }
