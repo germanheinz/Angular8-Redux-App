@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth/auth.service';
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.user = new User(this.form.value.username, this.form.value.password);
 
       this.authService.login(this.user).subscribe(resp => {
-      // console.log(resp);
+      console.log(resp);
 
       // SERVICES
       this.authService.saveUser(resp.access_token);

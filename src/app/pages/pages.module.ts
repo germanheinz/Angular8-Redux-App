@@ -7,11 +7,13 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material-module';
 import { ContactComponent } from './contact/contact.component';
+import { ClientComponent } from './client/client.component';
 @NgModule({
   declarations: [
     PagesComponent,
     HomeComponent,
     ContactComponent,
+    ClientComponent,
   ],
   exports:[],
   imports: [

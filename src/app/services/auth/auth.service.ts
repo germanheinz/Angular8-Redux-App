@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import * as authAction from '../../auth/auth.actions';
+import * as clientAction from '../../pages/client/client.actions';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -62,7 +63,7 @@ export class AuthService {
 
     // NGRX DISPATCH ACTION
     this.store.dispatch(authAction.unSetUser());
-    
+    this.store.dispatch(clientAction.unSetClients());
     this.router.navigate(['/login']);
   }
 
@@ -109,6 +110,10 @@ export class AuthService {
       return JSON.parse(atob(accessToken.split('.')[1]));
     }
     return null;
+  }
+
+  getCurrentUser(){
+    return this._user;
   }
 
 }
