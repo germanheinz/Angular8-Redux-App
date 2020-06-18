@@ -1,14 +1,14 @@
-export interface Client {
-  id: number;
+export class Client {
+  id?: number;
   nombre: string;
   apellido: string;
   email: string;
-  createAt: string;
+  createAt?: string;
   foto?: any;
-  facturas: Factura[];
+  facturas?: Factura[];
 }
 
-export interface Factura {
+export class Factura {
   id: number;
   descripcion: string;
   observacion?: any;
@@ -16,14 +16,14 @@ export interface Factura {
   items: Item[];
 }
 
-export interface Item {
+export class Item {
   id: number;
   cantidad: number;
   producto: Producto;
   importe: number;
 }
 
-export interface Producto {
+export class Producto {
   id: number;
   nombre: string;
   precio: number;

@@ -8,3 +8,11 @@ button {
     margin-left: 15px;
     margin-right: 15px;
 }
+
+div a .active {
+    color: #00ffdc;
+}
+
+.demo {
+    color: #00ffdc;
+}

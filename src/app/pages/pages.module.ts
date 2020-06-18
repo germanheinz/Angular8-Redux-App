@@ -8,19 +8,25 @@ import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material-module';
 import { ContactComponent } from './contact/contact.component';
 import { ClientComponent } from './client/client.component';
+import { ClientModalComponent } from './client/client-dialog-update/client-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ClientDialogCreateComponent } from './client/client-dialog-create/client-dialog-create.component';
 @NgModule({
   declarations: [
     PagesComponent,
     HomeComponent,
     ContactComponent,
     ClientComponent,
+    ClientModalComponent,
+    ClientDialogCreateComponent,
   ],
   exports:[],
   imports: [
     CommonModule,
     PAGES_ROUTES,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

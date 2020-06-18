@@ -1,6 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { Client } from 'src/app/models/client.model';
 
-export const getClients = createAction('[Clients] getClients', props<{client: Client[]}>());
+export const setClients = createAction('[Clients] setClients', props<{client: Client[]}>());
 
 export const unSetClients = createAction('[Clients] unSetClients');
+
+export const updateClient = createAction('[Clients] updateClient', props<{client: Client}>());
+
+export const clearClient = createAction('[Clients] updateClient');
+
+export const createClient = createAction('[Clients] createClient', props<{client: Client}>());
+
+export const savedClear = createAction('[Clients] createClient');
+
+export const deleteClient = createAction('[Clients] deleteClient');

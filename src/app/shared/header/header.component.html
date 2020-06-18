@@ -3,22 +3,21 @@
         <button mat-icon-button>
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
-        <h1>SimpleCRM</h1>
+        <h1></h1>
         <span class="menu-spacer"></span>
         <div>
-            <a mat-button [routerLink]="'/home'"> Home </a>
-            <a mat-button [routerLink]="'/client'"> Clients </a>
-            <a mat-button [routerLink]="'/contact'"> Contact </a>
-            <a mat-button [routerLink]="'/create-contact'"> Create Contact </a>
-            <a mat-button [routerLink]="'/activities'"> Activities </a>
-            <a mat-button [routerLink]="'/create-activity'"> Create Activity </a>
-            <button (click)="logOut()" mat-button mat-raised-button color="primary">LOGOUT</button>
+            <a mat-button [routerLink]="'/home'" routerLinkActive="demo"> Home </a>
+            <a mat-button [routerLink]="'/client'" routerLinkActive="demo"> Clients </a>
+            <a mat-button [routerLink]="'/contact'" routerLinkActive="demo"> Contact </a>
+            <a mat-button [routerLink]="'/activities'" routerLinkActive="demo"> Activities </a>
+
+            <button (click)="logOut()" mat-button color="accent">LOGOUT</button>
 
         </div>
     </mat-toolbar-row>
 
     <mat-toolbar-row>
-        <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+        <span style="font-size: 12px;">Spring Boot - Angular 8 - NGRX - Redux</span>
     </mat-toolbar-row>
 </mat-toolbar>
 

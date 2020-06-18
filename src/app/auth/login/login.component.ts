@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       username : new FormControl('', [Validators.required]),
       password : new FormControl('', [Validators.required])
     });
-    this.uiSubscription = this.store.select('ui').subscribe(ui => { this.loading = ui.isLoading; });
+    this.uiSubscription = this.store.select('ui').subscribe(ui => { this.loading = ui.isLoading;});
   }
 
   // IMPLEMENT ON DESTROY TO CLEAN MEMORY
@@ -42,13 +42,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(){
-    // DISPATCH ACTION
+      // DISPATCH ACTION
       this.store.dispatch(ui.isLoading());
 
       this.user = new User(this.form.value.username, this.form.value.password);
-
+      // LOGIN
       this.authService.login(this.user).subscribe(resp => {
-      console.log(resp);
+
 
       // SERVICES
       this.authService.saveUser(resp.access_token);

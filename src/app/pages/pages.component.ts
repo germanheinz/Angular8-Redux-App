@@ -20,7 +20,6 @@ export class PagesComponent implements OnInit {
   ngOnInit(): void {
 
     this.user = JSON.parse(sessionStorage.getItem('user'));
-
     this.store.dispatch(authAction.setUser({user: this.user}));
 
   }

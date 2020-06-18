@@ -1,21 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
-import * as clientAction from './client.actions';
 import { Client } from 'src/app/models/client.model';
-import { getClients, unSetClients } from './client.actions';
-
+import { setClients, unSetClients, createClient, deleteClient, updateClient, clearClient, savedClear } from './client.actions';
 export interface State {
-    client: Client[];
+    getClient: Client[];
+    toUpdate: Client;
 }
 
 export const initialState: State = {
-   client: null,
+   getClient : null,
+   toUpdate: null
 }
 
 const _clientReducer = createReducer(initialState,
-
-    on(getClients, (state, { client }) => ({ ...state, client: {...client}})),
-    on(unSetClients, state => ({ ...state, client: null})),
-
+    on(setClients, (state, { client }) => ({ ...state, getClient: {...client}})),
+    on(unSetClients, state => ({ ...state, getClient: null })),
+    on(updateClient, (state, { client }) => ({ ...state, toUpdate: {...client}})),
+    on(clearClient, (state) => ({ ...state })),
+    on(deleteClient, (state) => ({ ...state})),
+    on(createClient, (state, { client }) => ({ ...state, saved: {...client}})),
+    on(savedClear, state => ({ ...state, savedClear: null}))
 );
 
 export function clientReducer(state, action) {

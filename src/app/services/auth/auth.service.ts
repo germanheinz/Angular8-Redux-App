@@ -20,6 +20,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) { this.loadStorage(); }
 
+  isAuthenticated(): boolean {
+    if (this._token !== '' && this._user != null) {
+        return true;
+    }
+    return false;
+  }
+
   loadStorage() {
     this._token = sessionStorage.getItem('token');
     this._user = JSON.parse(sessionStorage.getItem('usuario'));
@@ -64,6 +71,7 @@ export class AuthService {
     // NGRX DISPATCH ACTION
     this.store.dispatch(authAction.unSetUser());
     this.store.dispatch(clientAction.unSetClients());
+    this.store.dispatch(clientAction.savedClear());
     this.router.navigate(['/login']);
   }
 
@@ -96,7 +104,7 @@ export class AuthService {
     sessionStorage.setItem('user', JSON.stringify(this._user));
 
     // NGRX DISPATCH ACTION
-    this.store.dispatch(authAction.setUser({user: this._user}));
+    // this.store.dispatch(authAction.setUser({user: this._user}));
   }
 
   // LOCAL STORAGE: TOKEN
