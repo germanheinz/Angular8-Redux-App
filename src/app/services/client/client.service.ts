@@ -56,7 +56,6 @@ export class ClientService {
     const url = environment.URL + '/api/clientes';
     return this.http.get(url).pipe(map((resp: Client[]) => {
       this._client = resp;
-      // this.store.dispatch(actions.setClientsSuccess({client: this._client}));
       return resp;
      }));
   }

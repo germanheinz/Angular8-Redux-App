@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as authAction from '../../store/actions/auth.actions';
-import * as clientAction from '../../store/actions/client.actions';
+import * as clientAction from '../../store/actions/clients.actions';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -69,8 +69,8 @@ export class AuthService {
 
     // NGRX DISPATCH ACTION
     this.store.dispatch(authAction.unSetUser());
-    this.store.dispatch(clientAction.unSetClients());
-    this.store.dispatch(clientAction.savedClear());
+    // this.store.dispatch(clientAction.unSetClients());
+    // this.store.dispatch(clientAction.savedClear());
     this.router.navigate(['/login']);
   }
 

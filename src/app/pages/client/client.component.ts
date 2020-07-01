@@ -10,8 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientModalComponent } from './client-dialog-update/client-modal.component';
 import { ClientDialogCreateComponent } from './client-dialog-create/client-dialog-create.component';
 import Swal from 'sweetalert2';
-import * as clientActions from '../../store/actions/client.actions';
-import { AppStateWithClient } from '../../store/reducers/client.reducer';
+import * as clientsActions from '../../store/actions/clients.actions';
+import { AppStateWithClient } from '../../store/reducers/clients.reducer';
 
 @Component({
   selector: 'app-client',
@@ -43,7 +43,7 @@ export class ClientComponent implements OnInit, OnDestroy {
       this.loading = loading;
       this.err     = err;
     });
-    this.store.dispatch(clientActions.setClients());
+    this.store.dispatch(clientsActions.setClients());
   }
 
   ngOnDestroy(): void {
@@ -62,7 +62,7 @@ export class ClientComponent implements OnInit, OnDestroy {
         showConfirmButton: false,
         timer: 1000
       }),
-      this.store.dispatch(clientActions.deleteClient());
+      this.store.dispatch(clientsActions.deleteClient());
       this.getClients();
     }, error => {
 
@@ -76,10 +76,10 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   clientDialogUpdate(client: Client) {
     this.clientToUpdate = {...client};
-    this.store.dispatch(clientActions.updateClient({client: {...this.clientToUpdate}}));
+    this.store.dispatch(clientsActions.updateClient({client: {...this.clientToUpdate}}));
     const dialogRef = this.dialog.open(ClientModalComponent, {data: client});
     dialogRef.afterClosed().subscribe(result => {
-      this.store.dispatch(clientActions.clearClient());
+      this.store.dispatch(clientsActions.clearClient());
       console.log(`Dialog result: ${result}`);
       this.getClients();
     });

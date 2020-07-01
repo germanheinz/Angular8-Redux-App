@@ -5,9 +5,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ClientService } from '../../../services/client/client.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import * as clientActions from '../../../store/actions/client.actions';
+import * as clientActions from '../../../store/actions/clients.actions';
 import { Subscription } from 'rxjs';
-import { AppStateWithClient } from '../../../store/reducers/client.reducer';
+import { AppStateWithClient } from '../../../store/reducers/clients.reducer';
 
 @Component({
   selector: 'app-client-modal',

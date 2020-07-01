@@ -12,8 +12,7 @@ import { ClientComponent } from './client/client.component';
 import { ClientModalComponent } from './client/client-dialog-update/client-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClientDialogCreateComponent } from './client/client-dialog-create/client-dialog-create.component';
-import { StoreModule } from '@ngrx/store';
-import { clientReducer } from '../store/reducers/client.reducer';
+
 @NgModule({
   declarations: [
     PagesComponent,

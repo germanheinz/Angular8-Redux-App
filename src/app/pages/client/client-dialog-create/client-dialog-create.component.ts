@@ -4,12 +4,12 @@ import { Client } from 'src/app/models/client.model';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { formatDate } from '@angular/common';
 import { ClientService } from '../../../services/client/client.service';
-import * as clientActions from '../../../store/actions/client.actions';
+import * as clientActions from '../../../store/actions/clients.actions';
 import { AppState } from '../../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
-import { AppStateWithClient } from '../../../store/reducers/client.reducer';
+import { AppStateWithClient } from '../../../store/reducers/clients.reducer';
 
 
 @Component({
