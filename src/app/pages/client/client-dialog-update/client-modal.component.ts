@@ -4,9 +4,10 @@ import { Client } from 'src/app/models/client.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ClientService } from '../../../services/client/client.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
-import * as clientActions from '../client.actions';
+import { AppState } from 'src/app/store/app.reducer';
+import * as clientActions from '../../../store/actions/client.actions';
 import { Subscription } from 'rxjs';
+import { AppStateWithClient } from '../../../store/reducers/client.reducer';
 
 @Component({
   selector: 'app-client-modal',
@@ -24,7 +25,7 @@ export class ClientModalComponent implements OnInit {
   // FORM
   form: FormGroup;
   constructor(@Inject(MAT_DIALOG_DATA) public data: Client,
-              private store: Store<AppState>,
+              private store: Store<AppStateWithClient>,
               private clientService: ClientService,
               public dialog: MatDialog) {this.client = data;}
 
@@ -35,8 +36,7 @@ export class ClientModalComponent implements OnInit {
       email    :  new FormControl(''),
     });
     this.setDefaultValues();
-    // this.store.dispatch(clientActions.updateClient({client: this.client}));
-    this.clientSubscription = this.store.select('client').subscribe(client => { });
+    // this.clientSubscription = this.store.select('client').subscribe(client => { });
   }
 
   setDefaultValues(){
@@ -60,11 +60,7 @@ export class ClientModalComponent implements OnInit {
     this.client.id = id;
     this.client.createAt = createAt;
     // this.clients.push(this.clientToUpdate);
-
-    this.clientService.updateClient({...this.client}).subscribe(resp => {
-    //  this.store.dispatch(clientActions.updateClient({client: {...this.client}}));
-    
-    });
+    this.clientService.updateClient({...this.client}).subscribe(resp => { });
     this.dialog.closeAll();
   }
   closeDialog(){

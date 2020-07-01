@@ -5,9 +5,9 @@ import { User } from '../../models/user.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
-import * as authAction from '../../auth/auth.actions';
-import * as clientAction from '../../pages/client/client.actions';
+import { AppState } from 'src/app/store/app.reducer';
+import * as authAction from '../../store/actions/auth.actions';
+import * as clientAction from '../../store/actions/client.actions';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -50,7 +50,6 @@ export class AuthService {
     params.set('grant_type', 'password');
     params.set('username', user.username);
     params.set('password', user.password);
-    // console.log(params.toString());
 
     return this.http.post<any>(url, params.toString(), {headers: httpHeaders});
   }
@@ -104,7 +103,7 @@ export class AuthService {
     sessionStorage.setItem('user', JSON.stringify(this._user));
 
     // NGRX DISPATCH ACTION
-    // this.store.dispatch(authAction.setUser({user: this._user}));
+    this.store.dispatch(authAction.setUser());
   }
 
   // LOCAL STORAGE: TOKEN

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
+import { AppState } from 'src/app/store/app.reducer';
 import { environment } from '../../../environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Client } from 'src/app/models/client.model';
-import * as clientActions from '../../pages/client/client.actions';
+import * as actions from '../../store/actions';
 import { AuthService } from '../auth/auth.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import Swal from 'sweetalert2';
@@ -56,7 +56,7 @@ export class ClientService {
     const url = environment.URL + '/api/clientes';
     return this.http.get(url).pipe(map((resp: Client[]) => {
       this._client = resp;
-      this.store.dispatch(clientActions.setClients({client: this._client}));
+      // this.store.dispatch(actions.setClientsSuccess({client: this._client}));
       return resp;
      }));
   }

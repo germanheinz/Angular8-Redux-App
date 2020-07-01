@@ -1,7 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { Client } from 'src/app/models/client.model';
 
-export const setClients = createAction('[Clients] setClients', props<{client: Client[]}>());
+export const setClients = createAction('[Clients] setClients');
+
+export const setClientsSuccess = createAction(
+    '[Clients] setClients Success', props<{clients: Client[]}>()
+);
+
+export const setClientsError = createAction(
+    '[Clients] set Clients Error',
+    props<{ payload: any }>()
+);
 
 export const unSetClients = createAction('[Clients] unSetClients');
 

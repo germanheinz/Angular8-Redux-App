@@ -7,9 +7,9 @@ import Swal from 'sweetalert2';
 
 // NGRX
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+import { AppState } from '../../store/app.reducer';
 import { Subscription } from 'rxjs';
-import * as ui from '../../shared/ui.actions';
+import * as ui from '../../store/actions/ui.actions';
 
 @Component({
   selector: 'app-register',

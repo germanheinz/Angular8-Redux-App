@@ -1,15 +1,18 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
+
 // NGRX
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
-import * as ui from '../../shared/ui.actions';
+import { AppState } from '../../store/app.reducer';
+// import * as ui from '../../shared/ui.actions';
+import * as ui from '../../store/actions/ui.actions';
 import { Subscription } from 'rxjs';
+import * as Action from '../../store/actions';
 
 
 @Component({
@@ -26,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   uiSubscription: Subscription;
 
+  // constructor(private authService: AuthService, private router: Router, private store: Store<AppState>) { }
   constructor(private authService: AuthService, private router: Router, private store: Store<AppState>) { }
 
   ngOnInit(): void {
@@ -33,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       username : new FormControl('', [Validators.required]),
       password : new FormControl('', [Validators.required])
     });
-    this.uiSubscription = this.store.select('ui').subscribe(ui => { this.loading = ui.isLoading;});
+    this.uiSubscription = this.store.select('ui').subscribe(ui => { this.loading = ui.isLoading; });
   }
 
   // IMPLEMENT ON DESTROY TO CLEAN MEMORY
@@ -56,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       // DISPATCH ACTION
       this.store.dispatch(ui.stopLoading());
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
 
       Swal.fire({
         icon: 'success',

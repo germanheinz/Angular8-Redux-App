@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy,ViewChild, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy,ViewChild, SimpleChanges, Input, AfterContentInit } from '@angular/core';
 import { ClientService } from '../../services/client/client.service';
 import { Client } from 'src/app/models/client.model';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,8 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientModalComponent } from './client-dialog-update/client-modal.component';
 import { ClientDialogCreateComponent } from './client-dialog-create/client-dialog-create.component';
 import Swal from 'sweetalert2';
-import * as clientActions from './client.actions';
-import { updateClient } from './client.actions';
+import * as clientActions from '../../store/actions/client.actions';
+import { AppStateWithClient } from '../../store/reducers/client.reducer';
 
 @Component({
   selector: 'app-client',
@@ -24,31 +23,38 @@ export class ClientComponent implements OnInit, OnDestroy {
   clientSubscription: Subscription;
 
   displayedColumns = ['seqNo', 'description', 'duration', 'actions'];
-  client: Client[] = [];
   clientToUpdate: Client;
+
+  clients: Client[] = [];
+  loading: boolean = false;
+  err    : any;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<Client>;
 
 
-  constructor(private clientService: ClientService, public dialog: MatDialog, private store: Store<AppState>) {}
+  constructor(private clientService: ClientService, public dialog: MatDialog, private store: Store<AppStateWithClient>) {}
 
   ngOnInit(): void {
-    this.getClients();
-    // this.clientSubscription = this.store.select('client').subscribe(client => {  this.client = client.client});
+
+    this.clientSubscription = this.store.select('clients').subscribe(({clients, err, loading}) => {
+      this.clients = clients;
+      this.loading = loading;
+      this.err     = err;
+    });
+    this.store.dispatch(clientActions.setClients());
   }
 
   ngOnDestroy(): void {
-    // this.clientSubscription.unsubscribe();
+    this.clientSubscription.unsubscribe();
   }
 
   getClients(){
-    return this.clientService.getClients().subscribe(client => { this.client = client;});
+    return this.clientService.getClients().subscribe(clients => { this.clients = clients;});
   }
 
   deleteClient(id: number){
-    console.log(this.client);
     return this.clientService.delete(id).subscribe(resp => {
       Swal.fire({
         icon: 'success',
